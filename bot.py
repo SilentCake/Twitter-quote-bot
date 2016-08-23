@@ -15,7 +15,7 @@ def create_tweet():
     return text
 
 def getQuote():
-    q = f.get_quote(lang="en")
+    q = f.get_quote(lang="en") # Sometimes Forismatic throws random errors cause json?
     quote = q.quote + "- " + q.author
     return quote
 
@@ -24,7 +24,6 @@ def tweet(text):
     auth = tweepy.OAuthHandler(C_KEY, C_SECRET)
     auth.set_access_token(A_TOKEN, A_TOKEN_SECRET)
     api = tweepy.API(auth)
-
     try:
         api.update_status(text)
     except tweepy.error.TweepError as e:
@@ -39,7 +38,7 @@ def log(message):
         f.write("\n" + t + " " + str(message))
 
 def main():
-    threading.Timer(10.0, main).start()  # tweets every hour
+    threading.Timer(60.0, main).start()
     tweet_text = create_tweet()
     tweet(tweet_text)
 
