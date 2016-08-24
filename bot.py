@@ -15,8 +15,11 @@ def create_tweet():
     return text
 
 def getQuote():
-    q = f.get_quote(lang="en") # Sometimes Forismatic throws random errors cause json?
-    quote = q.quote + "- " + q.author
+    try:
+        q = f.get_quote(lang="en")
+        quote = q.quote + "- " + q.author
+    except:
+        log("There was an error while attempting to get a quote.")
     return quote
 
 def tweet(text):
